@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Action window -Property Tags- -->
+    <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate_property_tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree view for estate property Tags -->
+    <record id="estate_property_tag_view_tree" model="ir.ui.view">
+        <field name="name">estate_property_tag_tree</field>
+        <field name="model">estate_property_tag</field>
+        <field name="arch" type="xml">
+            <tree string="Property Tag tree">
+                <field name="name" string="Name"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
