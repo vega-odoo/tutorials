@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- Action window -Properties- -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate_property</field>
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- Tree view for estate property -->
     <record id="estate_property_view_tree" model="ir.ui.view"> 
-        <field name = "name"> estate_property_tree</field>
+        <field name = "name">estate_property_tree</field>
         <field name = "model">estate_property</field>
         <field name = "arch" type = "xml">
             <tree string="Property Tree">
@@ -18,10 +21,15 @@
                 <field name="expected_price" string="Expected Price"/>
                 <field name="selling_price" string="Selling Price"/>
                 <field name="date_availability" string="Available From"/>
+                <field name="property_type_id" string="Property Type"/>
+                <field name="buyer_id" string="Buyer"/>
+                <field name="sales_person_id" string="Sales Person"/>
+                <field name="tag_ids" string="Property Tags" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
 
+    <!-- Form view for estate property -->
     <record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">estate_property_form</field>
         <field name="model">estate_property</field>
@@ -35,10 +43,12 @@
                     <h1>
                         <field name="name"/>
                     </h1>
+                    <field name="tag_ids" string="Property Tags" widget="many2many_tags"/>
                     <group>
                         <group>
                             <field name="postcode" string="Postcode"/>
                             <field name="date_availability" string="Available From"/>   
+                            <field name="property_type_id" string="Property Type"/>
                         </group>
                         <group>
                             <field name="expected_price" string="Expected Price"/>
@@ -59,12 +69,24 @@
                                 <field name="state" string="State"/>
                             </group>
                         </page>
+                        <page string="Offers">
+                            <group>
+                                <field name="offer_ids" string="Offers"/>
+                            </group>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="buyer_id" string="Buyer"/>
+                                <field name="sales_person_id" string="Sales Person"/>      
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
+    <!-- Search filters for estate property -->
     <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">estate_property_search</field>
         <field name="model">estate_property</field>
@@ -75,11 +97,9 @@
                 <field name="bedrooms" string="Bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price" string="Expected Price"/>
+                <field name="property_type_id" string="Property Type"/>
                 <filter string="Available" name="available" domain="['|',('state', '=', 'New'),('state','=','Received')]"/>
-                <filter string="postcode" name="postcode" context="{'group_by':'postcode'}"/>
-                
-                <separator/>
-                
+                <filter string="postcode" name="postcode" context="{'group_by':'postcode'}"/>                
             </search>
         </field>
     </record>

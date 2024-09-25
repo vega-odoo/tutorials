@@ -1,7 +1,8 @@
 from odoo import fields, models
+
 class EstateProperty (models.Model):
     _name = "estate_property"
-    _description = "real estate property"
+    _description = "real estate property model"
 
     # Basic fields
     name = fields.Char(required = True)
@@ -17,6 +18,11 @@ class EstateProperty (models.Model):
     available = fields.Boolean(default = True)
     garden_area = fields.Integer()
     living_area = fields.Integer()
+    property_type_id = fields.Many2one("estate_property_type",string="Property Type")
+    buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
+    sales_person_id = fields.Many2one("res.users", string="sales Person", default = lambda self:self.env.user)
+    tag_ids = fields.Many2many("estate_property_tag", string="Property Tag")
+    offer_ids = fields.One2many("estate_property_offer","property_id", string="Property Offer")
     state = fields.Selection(
         selection = [('New','New'), ('Received','Received'), ('Accepted','Accepted'), ('Sold','Sold'), ('Canceled','Canceled')],
         required = True,
