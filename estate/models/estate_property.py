@@ -14,8 +14,9 @@ class EstateProperty (models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    active = fields.Boolean(default = True)
+    available = fields.Boolean(default = True)
     garden_area = fields.Integer()
+    living_area = fields.Integer()
     state = fields.Selection(
         selection = [('New','New'), ('Received','Received'), ('Accepted','Accepted'), ('Sold','Sold'), ('Canceled','Canceled')],
         required = True,
