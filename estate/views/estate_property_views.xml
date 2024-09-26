@@ -36,8 +36,8 @@
         <field name="arch" type="xml">
             <form string="Property form">
                 <header>
-                    <button string="Edit" name="edit_estate_property" />
-                    <button string="Create" name="Create_estate_property" />
+                    <button name="action_cancel_state" type="object" string="Cancel" />
+                    <button name="action_sold_state" type="object" string="Sold" />
                 </header>
                 <sheet>
                     <h1>
@@ -46,6 +46,7 @@
                     <field name="tag_ids" string="Property Tags" widget="many2many_tags"/>
                     <group>
                         <group>
+                            <field name="state" string="state"/>
                             <field name="postcode" string="Postcode"/>
                             <field name="date_availability" string="Available From"/>   
                             <field name="property_type_id" string="Property Type"/>
