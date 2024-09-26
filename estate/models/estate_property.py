@@ -54,18 +54,21 @@ class EstateProperty (models.Model):
 
     @api.onchange("garden")
     def _onchange_garden(self):
-        if(self.garden):
-            self.garden_area = 10
-            self.garden_orientation = "North"
-        else:
-            self.garden_area = 0
-            self.garden_orientation = False
+        for record in self:
+            if(record.garden):
+                record.garden_area = 10
+                record.garden_orientation = "North"
+            else:
+                record.garden_area = 0
+                record.garden_orientation = False
 
     def action_cancel_state(self):
         for record in self:
             if record.state == "Sold":
                 raise UserError(_("Sold Properties cannot be Canceled."))
             record.state = "Canceled"
+            for offer in record.offer_ids:
+                offer.status = "Refused"
         return True
 
     def action_sold_state(self):
