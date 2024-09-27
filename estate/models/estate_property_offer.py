@@ -17,6 +17,10 @@ class EstatePropertyOffer(models.Model):
     # Computed Fields
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
 
+    #sql_constraints
+    _sql_constraints = [
+        ('check_price','CHECK(price > 0)', 'Price must be positive'),
+    ]
 
     # Functions
     @api.depends("validity")
@@ -56,4 +60,5 @@ class EstatePropertyOffer(models.Model):
             if record.status == "Accepted":
                 record.property_id.buyer_id = False
                 record.property_id.selling_price = 0.0
+            
         return super(EstatePropertyOffer, self).unlink()
